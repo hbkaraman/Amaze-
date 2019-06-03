@@ -5,7 +5,7 @@ using UnityEngine;
 public class UpMove : MonoBehaviour {
 
 	public SwipePlayer Player;
-	private void OnTriggerEnter(Collider other)
+	private void OnTriggerStay(Collider other)
 	{
 		if (other.gameObject.tag == "Wall")
 		{

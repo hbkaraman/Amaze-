@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -43,30 +44,30 @@ public class SwipePlayer : MonoBehaviour
 		{
 			if (swipeCont.SwipeLeft && canMoveLeft)
 			{
-				desiredPos += Vector3.left;
+				desiredPos = Vector3.left;
 				canMove = false;
 			}
 
 			if (swipeCont.SwipeRight && canMoveRight)
 			{
-				desiredPos += Vector3.right;
+				desiredPos = Vector3.right;
 				canMove = false;
 			}
 
 			if (swipeCont.SwipeUp && canMoveUp)
 			{
-				desiredPos += Vector3.forward;
+				desiredPos = Vector3.forward;
 				canMove = false;
 			}
 
 			if (swipeCont.SwipeDown && canMoveDown)
 			{
-				desiredPos += Vector3.back;
+				desiredPos = Vector3.back;
 				canMove = false;
 			}
 		}
 	}
-
+		
 	void Animate()
 	{
 		
@@ -84,6 +85,7 @@ public class SwipePlayer : MonoBehaviour
 		if (other.gameObject.tag == "Wall")
 		{
 			desiredPos = Vector3.zero;
+			transform.position = transform.localPosition;
 			canMove = true;
 
 		}
