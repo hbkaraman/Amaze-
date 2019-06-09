@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4649033918713716}
   - component: {fileID: 33102585996160620}
   - component: {fileID: 23184391070741300}
-  - component: {fileID: 65562202722978606}
+  - component: {fileID: 65760385834332544}
   m_Layer: 0
   m_Name: GridWall
   m_TagString: Wall
@@ -37,7 +37,7 @@ Transform:
   m_GameObject: {fileID: 1797611105567236}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.9, y: 0.9, z: 0.9}
+  m_LocalScale: {x: 0.9, y: 1, z: 0.9}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -84,7 +84,7 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1797611105567236}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!65 &65562202722978606
+--- !u!65 &65760385834332544
 BoxCollider:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}

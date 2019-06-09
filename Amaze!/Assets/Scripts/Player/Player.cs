@@ -4,19 +4,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SwipePlayer : MonoBehaviour
+public class Player : MonoBehaviour
 {
 	public Swipe swipeCont;
-	
 	private Vector3 desiredPos = Vector3.zero;
-	private Vector3 nextDirection = Vector3.zero;
-
-	private float speed = 30f;
+	public float speed ;
 	private Rigidbody rb;
-	
-	
+
 	private bool canMove = true;
-	
 	public bool canMoveRight;
 	public bool canMoveLeft;
 	public bool canMoveUp;
@@ -26,20 +21,16 @@ public class SwipePlayer : MonoBehaviour
 	{
 		desiredPos = transform.position;
 		rb = GetComponent<Rigidbody>();
-		
 	}
 
 	private void FixedUpdate()
 	{
-		Movement(desiredPos);
+		Movement(desiredPos);		
 		Animate();
 	}
 	private void Update()
 	{
-		Debug.Log(desiredPos);
-		Debug.Log(canMove);
-		Debug.Log(canMoveRight);
-
+	
 		if (canMove)
 		{
 			if (swipeCont.SwipeLeft && canMoveLeft)
@@ -47,20 +38,17 @@ public class SwipePlayer : MonoBehaviour
 				desiredPos = Vector3.left;
 				canMove = false;
 			}
-
-			if (swipeCont.SwipeRight && canMoveRight)
+			else if (swipeCont.SwipeRight && canMoveRight)
 			{
 				desiredPos = Vector3.right;
 				canMove = false;
 			}
-
-			if (swipeCont.SwipeUp && canMoveUp)
+			else if (swipeCont.SwipeUp && canMoveUp)
 			{
 				desiredPos = Vector3.forward;
 				canMove = false;
 			}
-
-			if (swipeCont.SwipeDown && canMoveDown)
+			else if (swipeCont.SwipeDown && canMoveDown)
 			{
 				desiredPos = Vector3.back;
 				canMove = false;
@@ -75,20 +63,27 @@ public class SwipePlayer : MonoBehaviour
 	
 	void Movement(Vector3 direction)
 	{
-		Debug.Log(direction);
 		rb.MovePosition(transform.position + direction * speed * Time.deltaTime);
 	}
 
-
-	private void OnTriggerEnter(Collider other)
+	private void OnCollisionEnter(Collision other)
 	{
 		if (other.gameObject.tag == "Wall")
 		{
-			desiredPos = Vector3.zero;
-			transform.position = transform.localPosition;
+			if (canMove)
+			{
+				desiredPos = Vector3.zero;
+			}
+			//transform.position = transform.localPosition;
 			canMove = true;
-
 		}
 	}
-	
+
+	private void OnCollisionStay(Collision other)
+	{
+		if (other.gameObject.tag == "Wall")
+		{
+			canMove = true;
+		}
+	}
 }

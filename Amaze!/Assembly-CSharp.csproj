@@ -59,12 +59,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Other\DestroyParticleEffect.cs" />
+    <Compile Include="Assets\Scripts\Other\GameManager.cs" />
+    <Compile Include="Assets\Scripts\Other\GridCube.cs" />
+    <Compile Include="Assets\Scripts\Other\LevelMan.cs" />
+    <Compile Include="Assets\Scripts\Other\ObjectPooler.cs" />
     <Compile Include="Assets\Scripts\Player\MovementControls\DownMove.cs" />
     <Compile Include="Assets\Scripts\Player\MovementControls\LeftMove.cs" />
     <Compile Include="Assets\Scripts\Player\MovementControls\RightMove.cs" />
     <Compile Include="Assets\Scripts\Player\MovementControls\UpMove.cs" />
+    <Compile Include="Assets\Scripts\Player\Player.cs" />
     <Compile Include="Assets\Scripts\Player\Swipe.cs" />
-    <Compile Include="Assets\Scripts\Player\SwipePlayer.cs" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>D:/Belgeler/GitHub/Amaze-/Amaze!/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>
