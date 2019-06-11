@@ -9,8 +9,6 @@ public class GridCube : MonoBehaviour
     public Material material;
     private Renderer rend;
     
-    
-    
     public bool isCollect;
     private bool oneCreted = true;
     public GameObject particleEffect;
@@ -22,14 +20,16 @@ public class GridCube : MonoBehaviour
         rend = GetComponent<Renderer>();
     }
 
-    private void Update()
-    {
-       
-    }
 
-    void CreateParticleEffect()
+    private IEnumerator CreateEffects()
     {
-       
+        rend.material = material;
+        particleEffect = ObjectPooler.SharedInstance.GetPooledObject(0);
+        particleEffect.SetActive(true);
+        particleEffect.gameObject.transform.position = player.gameObject.transform.position;  
+        oneCreted = false;
+        yield return new WaitForSeconds(1f);
+        particleEffect.SetActive(false);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -38,14 +38,15 @@ public class GridCube : MonoBehaviour
         {
             isCollect = true;
           
-            if (isCollect == true && oneCreted == true)
+            if (isCollect && oneCreted )
             {
-                rend.material = material;
-                particleEffect = ObjectPooler.SharedInstance.GetPooledObject(0);
-                particleEffect.SetActive(true);
-                particleEffect.gameObject.transform.position = player.gameObject.transform.position;  
-                oneCreted = false;
+               StartCoroutine(CreateEffects());
             }
+        }
+       
+        if (other.gameObject.tag == "Wall")
+        {
+            isCollect = true;
         }
     }
 }

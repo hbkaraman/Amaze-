@@ -20,7 +20,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4656269823931614}
   - component: {fileID: 198205442677229502}
-  - component: {fileID: 114528714023028464}
   - component: {fileID: 199417996789758370}
   m_Layer: 0
   m_Name: PartEffect
@@ -42,17 +41,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 180, y: 0, z: 0}
---- !u!114 &114528714023028464
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1110264763428426}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aac72d60bbff3cd438d9637b9302cf12, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!198 &198205442677229502
 ParticleSystem:
   m_ObjectHideFlags: 1

@@ -6,54 +6,25 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+	public CameraShake camshake;
+	public LayerMask playerMask;
 	public Swipe swipeCont;
-	private Vector3 desiredPos = Vector3.zero;
+	private Vector3 _desiredPos = Vector3.zero;
 	public float speed ;
-	private Rigidbody rb;
-
-	private bool canMove = true;
-	public bool canMoveRight;
-	public bool canMoveLeft;
-	public bool canMoveUp;
-	public bool canMoveDown;
-
+	public bool _canMove = true;
 	private void Start()
 	{
-		desiredPos = transform.position;
-		rb = GetComponent<Rigidbody>();
+		_desiredPos = transform.position;
 	}
 
 	private void FixedUpdate()
 	{
-		Movement(desiredPos);		
-		Animate();
+		Movement();
+		PlayerTransform();
 	}
 	private void Update()
 	{
-	
-		if (canMove)
-		{
-			if (swipeCont.SwipeLeft && canMoveLeft)
-			{
-				desiredPos = Vector3.left;
-				canMove = false;
-			}
-			else if (swipeCont.SwipeRight && canMoveRight)
-			{
-				desiredPos = Vector3.right;
-				canMove = false;
-			}
-			else if (swipeCont.SwipeUp && canMoveUp)
-			{
-				desiredPos = Vector3.forward;
-				canMove = false;
-			}
-			else if (swipeCont.SwipeDown && canMoveDown)
-			{
-				desiredPos = Vector3.back;
-				canMove = false;
-			}
-		}
+		Animate();
 	}
 		
 	void Animate()
@@ -61,29 +32,57 @@ public class Player : MonoBehaviour
 		
 	}
 	
-	void Movement(Vector3 direction)
+	void Movement()
 	{
-		rb.MovePosition(transform.position + direction * speed * Time.deltaTime);
-	}
-
-	private void OnCollisionEnter(Collision other)
-	{
-		if (other.gameObject.tag == "Wall")
+		RaycastHit hit;
+		if (_canMove)
 		{
-			if (canMove)
+			if (swipeCont.SwipeLeft)
 			{
-				desiredPos = Vector3.zero;
+				if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.left), out hit, Mathf.Infinity , playerMask))
+				{
+					_desiredPos.x = hit.transform.position.x + 1;
+					_canMove = false;
+				}
 			}
-			//transform.position = transform.localPosition;
-			canMove = true;
+			else if (swipeCont.SwipeRight)
+			{
+				if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.right), out hit, Mathf.Infinity , playerMask))
+				{
+					_desiredPos.x = hit.transform.position.x - 1;
+					_canMove = false;
+				}
+			}
+			else if (swipeCont.SwipeUp)
+			{
+				if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity , playerMask))
+				{
+					_desiredPos.z = hit.transform.position.z - 1;
+					_canMove = false;
+				}
+			}
+			else if (swipeCont.SwipeDown)
+			{
+				if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.back), out hit, Mathf.Infinity , playerMask))
+				{
+					_desiredPos.z = hit.transform.position.z + 1;
+					_canMove = false;
+				}
+			}	
 		}
 	}
 
-	private void OnCollisionStay(Collision other)
+	void PlayerTransform()
 	{
-		if (other.gameObject.tag == "Wall")
+		if (transform.position != _desiredPos)
 		{
-			canMove = true;
+			transform.position = Vector3.MoveTowards(transform.position, _desiredPos, speed * Time.deltaTime);
+			camshake.Shake();
+		}
+		else
+		{
+			_canMove = true;
 		}
 	}
+
 }
