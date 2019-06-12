@@ -19,13 +19,14 @@ public class Player : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-		Movement();
 		PlayerTransform();
 	}
 	private void Update()
 	{
+		Movement();
 		Animate();
-	}
+	}			
+
 		
 	void Animate()
 	{
